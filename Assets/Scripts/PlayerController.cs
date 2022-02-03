@@ -33,12 +33,8 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         //Movement command + run always looking towards Player front.
-        //transform.Rotate(Vector3.up * turnSpeed * Time.deltaTime * horizontalInput, Space.World);
-        // transform.Translate(Vector3.forward * Time.deltaTime * runSpeed * verticalInput, Space.Self);
-
-        rb.AddForce(-1*transform.right * runSpeed * verticalInput);
+        rb.AddForce(transform.forward * runSpeed * verticalInput);
         rb.AddTorque(player.transform.up * turnSpeed * horizontalInput);
-
-            //referenciar la cámara + camera.transform.forward
+       
     }
 }
