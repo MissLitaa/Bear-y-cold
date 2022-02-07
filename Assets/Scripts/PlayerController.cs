@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private Rigidbody rb;
-    public GameObject camera;
     public GameObject player;
  
 
