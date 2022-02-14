@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 752298426058042963}
   - component: {fileID: 4458397585585562102}
   - component: {fileID: 1890280057316414780}
+  - component: {fileID: -5908109045692069683}
+  - component: {fileID: -3651521399904429713}
   m_Layer: 0
   m_Name: Proyectil_Snow_FBX
-  m_TagString: Untagged
+  m_TagString: SnowProyectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,3 +83,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-5908109045692069683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88774304031192297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e4b36561b776a4d8a2a356194bc8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3651521399904429713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88774304031192297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5468c29e23f6d2540a98015826ff605a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proyectileSpeed: 15

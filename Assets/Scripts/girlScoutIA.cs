@@ -27,7 +27,7 @@ public class girlScoutIA : MonoBehaviour
             //Game over goes here.
         }
 
-        if (collision.gameObject.tag == "SnowProjectile")
+        if (collision.gameObject.tag == "SnowProyectile")
         {
             //Particles go here.
             //Animation girl scout death here.
