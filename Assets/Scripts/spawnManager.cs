@@ -7,6 +7,9 @@ public class spawnManager : MonoBehaviour
     public GameObject girlScout;
     public GameObject snowProyectile;
     public GameObject player;
+    public GameObject school;
+
+    public Animation doorOpening;
 
     private Vector3 girlScoutSpawnPos;
     private Vector3 snowProyectilePos;
@@ -18,8 +21,7 @@ public class spawnManager : MonoBehaviour
     
     void Start()
     {
-        
-        InvokeRepeating("SpawnGirlScout", time: 2, repeatRate: 1.5f);
+        InvokeRepeating("SpawnGirlScout", time: 1f, repeatRate: 5f);
     }
 
     void Update()
@@ -32,7 +34,8 @@ public class spawnManager : MonoBehaviour
 
     public void SpawnGirlScout()
     {
-        girlScoutSpawnPos = new Vector3(-11, 1, 0);
+        doorOpening.Play();
+        girlScoutSpawnPos = new Vector3(-13, 1, 0);
         Instantiate(girlScout, girlScoutSpawnPos, girlScout.transform.rotation);
     }
 

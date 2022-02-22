@@ -10,7 +10,7 @@ public class girlScoutIA : MonoBehaviour
     private NavMeshAgent navMesh;
     public ParticleSystem snowBlowPS;
     public ParticleSystem snowWalkPS;
-
+    
     private bool isPlaying = false;
    
     void Start()

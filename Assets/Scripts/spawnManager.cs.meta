@@ -3,7 +3,11 @@ guid: 581b0bb26d1a17046aa64744abb6f0f9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - girlScout: {instanceID: 0}
+  - snowProyectile: {instanceID: 0}
+  - player: {instanceID: 0}
+  - school: {fileID: 919132149155446097, guid: 5b3a31e0fe9d9c041880653be53503dc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
