@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4458397585585562102}
   - component: {fileID: 1890280057316414780}
   - component: {fileID: -5908109045692069683}
-  - component: {fileID: -3651521399904429713}
   - component: {fileID: 5990486329941105003}
   - component: {fileID: 4923265199572761262}
+  - component: {fileID: -5494838215323133370}
   m_Layer: 0
   m_Name: Proyectil_Snow_FBX
   m_TagString: SnowProyectile
@@ -97,21 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e4b36561b776a4d8a2a356194bc8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3651521399904429713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88774304031192297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5468c29e23f6d2540a98015826ff605a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  proyectileSpeed: 15
-  enemy: {fileID: 7426457900366043783, guid: 94f323397f47b6b4692fdd18b9e3ed9d, type: 3}
-  snowBlowPS: {fileID: 8511490533752564196, guid: e0646878472769a4e8a3e3c30c7f7bc9, type: 3}
 --- !u!136 &5990486329941105003
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -142,3 +127,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-5494838215323133370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88774304031192297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5468c29e23f6d2540a98015826ff605a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proyectileSpeed: 30
+  enemy: {fileID: 7426457900366043783, guid: 94f323397f47b6b4692fdd18b9e3ed9d, type: 3}
+  proyectileGEO: {fileID: 88774304031192297}
+  snowBlowPS: {fileID: 8511490533752564196, guid: e0646878472769a4e8a3e3c30c7f7bc9, type: 3}

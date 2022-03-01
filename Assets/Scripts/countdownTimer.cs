@@ -8,9 +8,15 @@ public class countdownTimer : MonoBehaviour
 {
     [HideInInspector] public float currentTime = 0f;
     [HideInInspector] public float startingTime = 30f;
-    [HideInInspector] public TextMeshPro timeDisplay;
     [HideInInspector] public bool timerIsRunning;
     [HideInInspector] public bool restartTimer;
+    public TextMeshProUGUI timeDisplay;
+
+    [HideInInspector] sceneManager sceneMan;
+    public spawnManager spawnMan;
+
+    public Canvas shopCanvas;
+    public GameObject shopCanvasGEO;
 
     public ParticleSystem confettiParticles;
     public AudioSource confettiAudio;
@@ -32,22 +38,33 @@ public class countdownTimer : MonoBehaviour
         shopPosition = shopGEO.transform.position;
     }
 
-    IEnumerator timerRoutine()
+    private void FixedUpdate()
+    {
+        StartCoroutine(timerRoutine(1));
+    }
+
+    public IEnumerator timerRoutine(int run)
     {
         playerPosition = player.transform.position;
-        currentTime -= 1 * Time.deltaTime;
-        timeDisplay.text = currentTime.ToString("0");
+        timeDisplay.text = currentTime.ToString("00:00");
 
-        if (currentTime <= 0)
+        if (currentTime > 0 )
         {
+            currentTime -= 1 * Time.deltaTime;
+        }
+
+        else if(currentTime <= 0)
+        {
+            StopCoroutine(timerRoutine(0));
             currentTime = 0;
             timerIsRunning = false;
-            //stop enemy spawn here
+            Debug.Log("Timer is not running");
+            spawnMan.StopScoutFromRunning(true);
 
-            if (methodIsRunning == 0 && timerIsRunning == false)
+            if (timerIsRunning == false)
             {
-                methodIsRunning++;
                 openShop();
+                Debug.Log("Shop is now open");
             }
 
             //particles confetti here
@@ -75,18 +92,22 @@ public class countdownTimer : MonoBehaviour
         {
             if (Input.GetButtonDown("E"))
             {
+                shopCanvasGEO.SetActive(true);
+                shopCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
                 isInShop = true;
-                //call shop system here. (scenemode.additive, el canvas de la hud de la tienda)
-                //update inventory if necessary.
             }
 
             else if (Input.GetButtonDown("E") && isInShop == true)
-                {
-                //close shop system first
+            {
+                shopCanvasGEO.SetActive(false);
                 isInShop = false;
                 isShopOpen = false;
+                spawnMan.spawnGirlScout(true);
+                currentTime = startingTime;
             }
         }
     }
+
+    
 }
 
