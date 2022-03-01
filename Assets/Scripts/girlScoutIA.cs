@@ -7,43 +7,20 @@ using UnityEngine.AI;
 public class girlScoutIA : MonoBehaviour
 {
     public GameObject player;
+    public GameObject coin;
     private NavMeshAgent navMesh;
-    public ParticleSystem snowBlowPS;
-    public ParticleSystem snowWalkPS;
-    
-    private bool isPlaying = false;
    
-    void Start()
+    public void Start()
     {
+        player = GameObject.Find("Player");
         navMesh = GetComponent<NavMeshAgent>();
-        snowBlowPS = GetComponent<ParticleSystem>();
-        snowWalkPS = GetComponent<ParticleSystem>();
+        
     }
 
     
-    void Update()
+    void FixedUpdate()
     {
         navMesh.destination = player.transform.position;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Time.timeScale = 0;
-            //Game over goes here.
-        }
-       
-
-
-
-        if (collision.gameObject.tag == "SnowProyectile")
-        {
-            snowWalkPS.Stop();
-            snowBlowPS.Play();
-            //Animation girl scout death here.
-            Destroy(gameObject);
-            //Generate coins. Call to coin script here.
-        }
-    }
 }

@@ -3,7 +3,12 @@ guid: fdda414b5a8397a438090a773f481feb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timeDisplay: {instanceID: 0}
+  - confettiParticles: {instanceID: 0}
+  - confettiAudio: {instanceID: 0}
+  - shopGEO: {fileID: 8386677252770502932, guid: 147f1207bf0b8f74082645e03cf3337a, type: 3}
+  - player: {fileID: 5504049184912635423, guid: c41de099e41a56242ae49c65b0e95dc2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

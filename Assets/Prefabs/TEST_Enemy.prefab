@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7426457900366043782}
   m_Layer: 0
   m_Name: TEST_Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609ce22ea57e3b249b89e2b2efbec443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5504049184912635423, guid: c41de099e41a56242ae49c65b0e95dc2, type: 3}
+  coin: {fileID: 2986451518270119818, guid: 55c59263ebf1ecb4485b404d2dcd695b, type: 3}
   snowBlowPS: {fileID: 8511490533752564196, guid: e0646878472769a4e8a3e3c30c7f7bc9, type: 3}
   snowWalkPS: {fileID: 1929799713358223551, guid: 2d59c8cd3490cc04d886cbc2e256ba88, type: 3}
 --- !u!1001 &7426457900467543244

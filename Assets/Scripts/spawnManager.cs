@@ -13,15 +13,13 @@ public class spawnManager : MonoBehaviour
 
     private Vector3 girlScoutSpawnPos;
     private Vector3 snowProyectilePos;
-    
 
     public int girlScoutIndex;
     public int snowProyectileIndex;
 
-    
     void Start()
     {
-        InvokeRepeating("SpawnGirlScout", time: 1f, repeatRate: 5f);
+        StartCoroutine(spawnGirlScoutt(1));
     }
 
     void Update()
@@ -32,9 +30,11 @@ public class spawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnGirlScout()
+    IEnumerator spawnGirlScoutt(int spawn)
     {
+        
         doorOpening.Play();
+        yield return new WaitForSecondsRealtime(2);
         girlScoutSpawnPos = new Vector3(-13, 1, 0);
         Instantiate(girlScout, girlScoutSpawnPos, girlScout.transform.rotation);
     }
@@ -47,4 +47,16 @@ public class spawnManager : MonoBehaviour
        
         Instantiate(snowProyectile, proyectileOffset, player.transform.rotation);
     }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Time.timeScale = 0;
+            //Game over goes here.
+        }
+
+    }
+
 }

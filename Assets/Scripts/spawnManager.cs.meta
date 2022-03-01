@@ -4,10 +4,13 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - girlScout: {instanceID: 0}
-  - snowProyectile: {instanceID: 0}
-  - player: {instanceID: 0}
+  - girlScout: {fileID: 7426457900366043783, guid: 94f323397f47b6b4692fdd18b9e3ed9d, type: 3}
+  - snowProyectile: {fileID: 88774304031192297, guid: a3c4c743084bee142a8d3eab36ead42f, type: 3}
+  - player: {fileID: 5504049184912635423, guid: c41de099e41a56242ae49c65b0e95dc2, type: 3}
   - school: {fileID: 919132149155446097, guid: 5b3a31e0fe9d9c041880653be53503dc, type: 3}
+  - doorOpening: {instanceID: 0}
+  - snowBlowPS: {fileID: 8511490533752564196, guid: e0646878472769a4e8a3e3c30c7f7bc9, type: 3}
+  - snowWalkPS: {fileID: 1929799713358223551, guid: 2d59c8cd3490cc04d886cbc2e256ba88, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

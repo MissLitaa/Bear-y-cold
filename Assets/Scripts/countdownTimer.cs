@@ -8,7 +8,7 @@ public class countdownTimer : MonoBehaviour
 {
     [HideInInspector] public float currentTime = 0f;
     [HideInInspector] public float startingTime = 30f;
-    [HideInInspector] public TextMeshProUGUI timeDisplay;
+    [HideInInspector] public TextMeshPro timeDisplay;
     [HideInInspector] public bool timerIsRunning;
     [HideInInspector] public bool restartTimer;
 
@@ -32,8 +32,7 @@ public class countdownTimer : MonoBehaviour
         shopPosition = shopGEO.transform.position;
     }
 
-    // Update is called once per frame
-    IEnumerator Update()
+    IEnumerator timerRoutine()
     {
         playerPosition = player.transform.position;
         currentTime -= 1 * Time.deltaTime;
@@ -66,10 +65,6 @@ public class countdownTimer : MonoBehaviour
         }
     }
 
-    public void FixedUpdate()
-    {
-        
-    }
 
     public void openShop()
     {
@@ -85,8 +80,8 @@ public class countdownTimer : MonoBehaviour
                 //update inventory if necessary.
             }
 
-            else if (&& isInShop = true)
-            {
+            else if (Input.GetButtonDown("E") && isInShop == true)
+                {
                 //close shop system first
                 isInShop = false;
                 isShopOpen = false;
