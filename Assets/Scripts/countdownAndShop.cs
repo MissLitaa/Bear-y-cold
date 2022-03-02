@@ -4,13 +4,16 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class countdownTimer : MonoBehaviour
+public class countdownAndShop : MonoBehaviour
 {
     [HideInInspector] public float currentTime = 0f;
-    [HideInInspector] public float startingTime = 30f;
+    [HideInInspector] public float startingTime = 5f;
     [HideInInspector] public bool timerIsRunning;
     [HideInInspector] public bool restartTimer;
+    public bool checkTimer;
+
     public TextMeshProUGUI timeDisplay;
+    public TextMeshProUGUI money;
 
     [HideInInspector] sceneManager sceneMan;
     public spawnManager spawnMan;
@@ -23,24 +26,34 @@ public class countdownTimer : MonoBehaviour
 
     public GameObject shopGEO;
     public GameObject player;
-    [HideInInspector] public bool isShopOpen;
     [HideInInspector] public bool isInShop;
     [HideInInspector] public Vector3 shopPosition;
     [HideInInspector] public Vector3 playerPosition;
-    [HideInInspector] public int playerIsInRange = 2;
+    [HideInInspector] public float playerIsInRange = 7f;
 
-    [HideInInspector] public int methodIsRunning = 0;
-
-    void Start()
+    public float distance;
+    public bool playerCanEnter;
+    
+    public void Start()
     {
         currentTime = startingTime;
         timerIsRunning = true;
-        shopPosition = shopGEO.transform.position;
+        shopPosition = shopGEO.transform.localPosition;
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         StartCoroutine(timerRoutine(1));
+        checkTimer = timerIsRunning;
+        Debug.Log($"Timer is updating to {timerIsRunning}");
+        distance = Vector3.Distance(playerPosition, shopPosition);
+
+        if (distance <= playerIsInRange)
+        {
+            playerCanEnter = true;
+            Debug.Log("Player in range of shop");
+        }
+
     }
 
     public IEnumerator timerRoutine(int run)
@@ -48,66 +61,56 @@ public class countdownTimer : MonoBehaviour
         playerPosition = player.transform.position;
         timeDisplay.text = currentTime.ToString("00:00");
 
-        if (currentTime > 0 )
+        if (currentTime > 0)
         {
             currentTime -= 1 * Time.deltaTime;
         }
-
-        else if(currentTime <= 0)
+        else if (currentTime <= 0)
         {
-            StopCoroutine(timerRoutine(0));
             currentTime = 0;
             timerIsRunning = false;
+
             Debug.Log("Timer is not running");
-            spawnMan.StopScoutFromRunning(true);
 
             if (timerIsRunning == false)
             {
-                openShop();
+                playerCanEnter = true;
                 Debug.Log("Shop is now open");
+                openShop();
             }
-
-            //particles confetti here
-
-            //confetti sound here
-
-
         }
 
         while (timerIsRunning)
         {
-            isShopOpen = false;
-            isInShop = false;
             yield return null;
         }
-    }
 
+    }
 
     public void openShop()
     {
-        isShopOpen = true;
-        float distance = Vector3.Distance(playerPosition, shopPosition);
-
-        if (distance < playerIsInRange)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetButtonDown("E"))
-            {
-                shopCanvasGEO.SetActive(true);
-                shopCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                isInShop = true;
-            }
+            shopCanvasGEO.SetActive(true);
+            Debug.Log("Player is in shop");
+            isInShop = true;
+        }
 
-            else if (Input.GetButtonDown("E") && isInShop == true)
-            {
-                shopCanvasGEO.SetActive(false);
-                isInShop = false;
-                isShopOpen = false;
-                spawnMan.spawnGirlScout(true);
-                currentTime = startingTime;
-            }
+        else if (Input.GetKeyDown(KeyCode.Q) && isInShop == true)
+        {
+            shopCanvasGEO.SetActive(false);
+            Debug.Log("Player leaves the shop");
+            isInShop = false;
+            new WaitForSecondsRealtime(2);
+            spawnMan.spawnGirlScout(true);
+            currentTime = startingTime;
+            StartCoroutine(timerRoutine(1));
         }
     }
 
-    
+    public void shopSystem()
+    {
+
+    }
 }
 

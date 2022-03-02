@@ -19,40 +19,54 @@ public class spawnManager : MonoBehaviour
     public int girlScoutIndex;
     public int snowProyectileIndex;
 
+    public countdownAndShop counter;
+    public bool checkTimer_;
+    public Coroutine stopGirlScout = null;
 
     public void Start()
     {
         snowBlowPS = snowProyectile.GetComponent<ParticleSystem>();
-        StartCoroutine(spawnGirlScout(true));
+
+    }
+    public void Awake()
+    {
+        //StartCoroutine(spawnGirlScout(true));
     }
 
     void Update()
     {
+        checkTimer_ = counter.checkTimer;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Invoke("SpawnSnowProyectile", 0.5f);
         }
 
-    }       
+        if (checkTimer_ == false)
+        {
+            StopAllCoroutines();
+            Debug.Log("Routine");
+        }
+
+    }
 
 
     public IEnumerator spawnGirlScout(bool run)
     {
-        yield return new WaitForSecondsRealtime(5);
-        doorOpening.Play();
-        yield return new WaitForSecondsRealtime(1);
-        girlScoutSpawnPos = new Vector3(-13, 1, 0);
-        Instantiate(girlScout, girlScoutSpawnPos, girlScout.transform.rotation);
-        Debug.Log("One girl scout has spawned");
-        yield return spawnGirlScout(true);
+        do
+        {
+            yield return new WaitForSecondsRealtime(5);
+            doorOpening.Play();
+            yield return new WaitForSecondsRealtime(1);
+            girlScoutSpawnPos = new Vector3(-13, 1, 0);
+            Instantiate(girlScout, girlScoutSpawnPos, girlScout.transform.rotation);
+            Debug.Log("One girl scout has spawned");
+            yield return spawnGirlScout(true);
+        }
+        while (run == true);
         
     }
 
-    public void StopScoutFromRunning(bool stopRun)
-    {
-        //Ponemos el stopcoroutine en una función para poder llamarla desde otro script.
-        
-    }
 
     public void SpawnSnowProyectile()
     {
