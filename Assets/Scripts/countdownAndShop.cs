@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class countdownAndShop : MonoBehaviour
 {
-    [HideInInspector] public float currentTime = 0f;
-    [HideInInspector] public float startingTime = 5f;
+    public float currentTime = 0f;
+    public float startingTime = 5f;
     [HideInInspector] public bool timerIsRunning;
     [HideInInspector] public bool restartTimer;
     public bool checkTimer;
@@ -29,7 +29,7 @@ public class countdownAndShop : MonoBehaviour
     [HideInInspector] public bool isInShop;
     [HideInInspector] public Vector3 shopPosition;
     [HideInInspector] public Vector3 playerPosition;
-    [HideInInspector] public float playerIsInRange = 7f;
+    private float playerIsInRange = 9f;
 
     public float distance;
     public bool playerCanEnter;
@@ -46,12 +46,24 @@ public class countdownAndShop : MonoBehaviour
         StartCoroutine(timerRoutine(1));
         checkTimer = timerIsRunning;
         Debug.Log($"Timer is updating to {timerIsRunning}");
-        distance = Vector3.Distance(playerPosition, shopPosition);
 
-        if (distance <= playerIsInRange)
+        distance = Vector3.Distance(playerPosition, shopPosition);
+        if (distance <= playerIsInRange && timerIsRunning==false)
         {
             playerCanEnter = true;
             Debug.Log("Player in range of shop");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!isInShop)
+                {
+                    openShop();
+                }
+
+                else
+                {
+                    closeShop();
+                }
+            }
         }
 
     }
@@ -72,12 +84,6 @@ public class countdownAndShop : MonoBehaviour
 
             Debug.Log("Timer is not running");
 
-            if (timerIsRunning == false)
-            {
-                playerCanEnter = true;
-                Debug.Log("Shop is now open");
-                openShop();
-            }
         }
 
         while (timerIsRunning)
@@ -89,23 +95,20 @@ public class countdownAndShop : MonoBehaviour
 
     public void openShop()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
             shopCanvasGEO.SetActive(true);
             Debug.Log("Player is in shop");
             isInShop = true;
-        }
+    }
 
-        else if (Input.GetKeyDown(KeyCode.Q) && isInShop == true)
-        {
-            shopCanvasGEO.SetActive(false);
-            Debug.Log("Player leaves the shop");
-            isInShop = false;
-            new WaitForSecondsRealtime(2);
-            spawnMan.spawnGirlScout(true);
-            currentTime = startingTime;
-            StartCoroutine(timerRoutine(1));
-        }
+    public void closeShop()
+    {
+        shopCanvasGEO.SetActive(false);
+        Debug.Log("Player leaves the shop");
+        isInShop = false;
+        spawnMan.spawnGirlScout(true);
+        currentTime = startingTime;
+        timerIsRunning = true;
+        StartCoroutine(timerRoutine(1));
     }
 
     public void shopSystem()

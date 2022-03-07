@@ -6,22 +6,31 @@ using TMPro;
 public class coinBehaviour : MonoBehaviour
 {
     public TextMeshProUGUI coinCounter;
-    public int startCoins;
-    public int baseCoins = 60;
-    public int girlScoutDrop = 5;
+    private int baseCoins = 60;
+    private int girlScoutDrop = 5;
+    private int currentCoins;
     public int lossDrop = 3;
-    public int currentCoins;
-    public int milk = 20;
-    public int eggs = 10;
-    public int butter = 20;
-    public int flour = 15;
-    public int sugar = 15;
+
+    //Prices
+    public int milkInt = 20;
+    public int eggsInt = 10;
+    public int butterInt = 20;
+    public int flourInt = 15;
+    public int sugarInt = 15;
+
+    //Are in inventory
+    public bool milkBool;
+    public bool eggsBool;
+    public bool butterBool;
+    public bool flourBool;
+    public bool sugarBool;
 
     void Start()
     {
-        startCoins = baseCoins + currentCoins;
-        coinCounter.text = startCoins.ToString();
+        currentCoins = baseCoins;
+        coinCounter.text = currentCoins.ToString();
         new WaitForSecondsRealtime(3);
+
     }
 
     private void Update()
@@ -40,33 +49,37 @@ public class coinBehaviour : MonoBehaviour
 
     public void buyMilk()
     {
-        currentCoins = currentCoins - milk;
-
-        //add object to inventory
-        //make it impossible to buy again.
-        /* if (in inventory)
-         {
-          can't click
-         }*/
+        currentCoins = currentCoins - milkInt;
+        milkBool = true;
+        //disable button but not the tick (easy way)
     }
     public void buyEggs()
     {
-        currentCoins = currentCoins - eggs;
-        //add object to inventory
+        currentCoins = currentCoins - eggsInt;
+        eggsBool = true;
     }
     public void buyButter()
     {
-        currentCoins = currentCoins - butter;
-        //add object to inventory
+        currentCoins = currentCoins - butterInt;
+        butterBool = true;
     }
     public void buyFlour()
     {
-        currentCoins = currentCoins - flour;
-        //add object to inventory
+        currentCoins = currentCoins - flourInt;
+        flourBool = true;
     }
     public void buySugar()
     {
-        currentCoins = currentCoins - sugar;
-        //add object to inventory
+        currentCoins = currentCoins - sugarInt;
+        sugarBool = true;
+    }
+
+    public void disableButton()
+    {
+    }
+
+    public void GameOver()
+    {
+        //if our coins reach 0 we call scenemanager, gameover.
     }
 }

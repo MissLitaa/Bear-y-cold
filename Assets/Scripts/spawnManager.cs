@@ -11,8 +11,6 @@ public class spawnManager : MonoBehaviour
 
     public Animation doorOpening;
 
-    public ParticleSystem snowBlowPS;
-
     public Vector3 girlScoutSpawnPos;
     private Vector3 snowProyectilePos;
 
@@ -23,11 +21,6 @@ public class spawnManager : MonoBehaviour
     public bool checkTimer_;
     public Coroutine stopGirlScout = null;
 
-    public void Start()
-    {
-        snowBlowPS = snowProyectile.GetComponent<ParticleSystem>();
-
-    }
     public void Awake()
     {
         //StartCoroutine(spawnGirlScout(true));
@@ -82,21 +75,10 @@ public class spawnManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Time.timeScale = 0;
-            
+            //call coin substraction here
         }
 
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            snowBlowPS.Play();
-            //Animation girl scout death here.
-            Destroy(gameObject);
-            //Generate coins. Call to coin script here.
-        }
-    }
 }
