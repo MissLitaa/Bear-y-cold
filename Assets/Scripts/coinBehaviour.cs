@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class coinBehaviour : MonoBehaviour
 {
+
     public TextMeshProUGUI coinCounter;
     private int baseCoins = 60;
     private int girlScoutDrop = 5;
@@ -24,6 +26,20 @@ public class coinBehaviour : MonoBehaviour
     public bool butterBool;
     public bool flourBool;
     public bool sugarBool;
+
+    //Button disabling
+    public Button milkDisableButton;
+    public Button eggDisableButton;
+    public Button butterDisableButton;
+    public Button flourDisableButton;
+    public Button sugarDisableButton;
+
+    //Ticks
+    public Image milkTick;
+    public Image eggTick;
+    public Image butterTick;
+    public Image flourTick;
+    public Image sugarTick;
 
     void Start()
     {
@@ -51,31 +67,38 @@ public class coinBehaviour : MonoBehaviour
     {
         currentCoins = currentCoins - milkInt;
         milkBool = true;
-        //disable button but not the tick (easy way)
+        milkDisableButton.gameObject.SetActive(false);
+        milkTick.gameObject.SetActive(true);
+        Debug.Log("I have Mommy Milky!");
     }
     public void buyEggs()
     {
         currentCoins = currentCoins - eggsInt;
         eggsBool = true;
+        eggDisableButton.gameObject.SetActive(false);
+        eggTick.gameObject.SetActive(true);
     }
     public void buyButter()
     {
         currentCoins = currentCoins - butterInt;
         butterBool = true;
+        butterDisableButton.gameObject.SetActive(false);
+        butterTick.gameObject.SetActive(true);
     }
     public void buyFlour()
     {
         currentCoins = currentCoins - flourInt;
         flourBool = true;
+
+        flourDisableButton.gameObject.SetActive(false);
+        flourTick.gameObject.SetActive(true);
     }
     public void buySugar()
     {
         currentCoins = currentCoins - sugarInt;
         sugarBool = true;
-    }
-
-    public void disableButton()
-    {
+        sugarDisableButton.gameObject.SetActive(false);
+        sugarTick.gameObject.SetActive(true);
     }
 
     public void GameOver()
