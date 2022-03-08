@@ -5,22 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class sceneManager : MonoBehaviour
 {
+    public Animator transition;
 
-    public static void MainMenu()
+    public void MainMenu()
     {
+        levelTransitionStart();
         SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
     }
-    public static void Outside()
+    public void Outside()
     {
+        levelTransitionStart();
         SceneManager.LoadScene("Outside", LoadSceneMode.Single);
     }
 
-    public static void GameOver()
+    public void GameOver()
     {
         SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
     }
 
-    public static void Quit()
+    public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -28,4 +31,15 @@ public class sceneManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void levelTransitionStart()
+    {
+          transition.SetTrigger("Start");
+    }
+
+    public void levelTransitionEnd()
+    {
+         transition.SetTrigger("End");
+    }
+
+    
 }

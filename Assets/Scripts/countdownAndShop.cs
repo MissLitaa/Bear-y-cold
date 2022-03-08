@@ -111,9 +111,5 @@ public class countdownAndShop : MonoBehaviour
         StartCoroutine(timerRoutine(1));
     }
 
-    public void shopSystem()
-    {
-
-    }
 }
 

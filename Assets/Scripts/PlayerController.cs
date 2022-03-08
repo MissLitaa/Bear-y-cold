@@ -15,13 +15,12 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private Rigidbody rb;
     public GameObject player;
- 
 
     //Initial position vector.
 
     void Start()
     {
-        transform.position = new Vector3(3f,1.2f,-13f);
+        transform.position = new Vector3(2.05f,1.19f, -11.5f);
         rb = GetComponent<Rigidbody>();
     }
 

@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class coinBehaviour : MonoBehaviour
 {
 
     public TextMeshProUGUI coinCounter;
+    public TextMeshProUGUI yesWin;
+    public TextMeshProUGUI noContinue;
+    public GameObject notEnoughMoney;
     private int baseCoins = 60;
-    private int girlScoutDrop = 5;
+    private int girlScoutDrop = 1;
     private int currentCoins;
     public int lossDrop = 3;
 
     //Prices
-    public int milkInt = 20;
-    public int eggsInt = 10;
-    public int butterInt = 20;
-    public int flourInt = 15;
-    public int sugarInt = 15;
+    [SerializeField] private int milkInt = 30;
+    [SerializeField] private int eggsInt = 25;
+    [SerializeField] private int butterInt = 30;
+    [SerializeField] private int flourInt = 25;
+    [SerializeField] private int sugarInt = 25;
 
     //Are in inventory
     public bool milkBool;
@@ -41,17 +45,30 @@ public class coinBehaviour : MonoBehaviour
     public Image flourTick;
     public Image sugarTick;
 
+    //Cross
+    public Image milkCross;
+    public Image eggCross;
+    public Image butterCross;
+    public Image flourCross;
+    public Image sugarCross;
+
+    //Game Over
+    public GameObject sceneMan;
+
     void Start()
     {
         currentCoins = baseCoins;
         coinCounter.text = currentCoins.ToString();
         new WaitForSecondsRealtime(3);
-
+        StartCoroutine(Wait());
+        StartCoroutine(WaitText());
+        notEnoughMoney.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         coinCounter.text = currentCoins.ToString();
+        accessGameOver();
     }
     public void AddCoins()
     {
@@ -65,44 +82,130 @@ public class coinBehaviour : MonoBehaviour
 
     public void buyMilk()
     {
-        currentCoins = currentCoins - milkInt;
-        milkBool = true;
-        milkDisableButton.gameObject.SetActive(false);
-        milkTick.gameObject.SetActive(true);
-        Debug.Log("I have Mommy Milky!");
+        if (currentCoins <= milkInt)
+        {
+            notEnoughMoney.gameObject.SetActive(true);
+            notEnoughMoney.gameObject.SetActive(false);
+        }
+        else
+        {
+            currentCoins = currentCoins - milkInt;
+            milkBool = true;
+            milkDisableButton.gameObject.SetActive(false);
+            milkTick.gameObject.SetActive(true);
+            Debug.Log("Player now has milk");
+            milkCross.gameObject.SetActive(true);
+        }
     }
     public void buyEggs()
     {
-        currentCoins = currentCoins - eggsInt;
-        eggsBool = true;
-        eggDisableButton.gameObject.SetActive(false);
-        eggTick.gameObject.SetActive(true);
+        if (currentCoins <= eggsInt)
+        {
+            notEnoughMoney.gameObject.SetActive(true);
+            notEnoughMoney.gameObject.SetActive(false);
+        }
+        else
+        {
+            currentCoins = currentCoins - eggsInt;
+            eggsBool = true;
+            eggDisableButton.gameObject.SetActive(false);
+            eggTick.gameObject.SetActive(true);
+            Debug.Log("Player now has eggs");
+            eggCross.gameObject.SetActive(true);
+        }
     }
     public void buyButter()
     {
-        currentCoins = currentCoins - butterInt;
-        butterBool = true;
-        butterDisableButton.gameObject.SetActive(false);
-        butterTick.gameObject.SetActive(true);
+        if (currentCoins <= butterInt)
+        {
+            notEnoughMoney.gameObject.SetActive(true);
+            notEnoughMoney.gameObject.SetActive(false); ;
+        }
+        else
+        {
+            currentCoins = currentCoins - butterInt;
+            butterBool = true;
+            butterDisableButton.gameObject.SetActive(false);
+            butterTick.gameObject.SetActive(true);
+            Debug.Log("Player now has butter");
+            butterCross.gameObject.SetActive(true);
+        }
     }
     public void buyFlour()
     {
-        currentCoins = currentCoins - flourInt;
-        flourBool = true;
-
-        flourDisableButton.gameObject.SetActive(false);
-        flourTick.gameObject.SetActive(true);
+        if (currentCoins <= flourInt)
+        {
+            notEnoughMoney.gameObject.SetActive(true);
+            notEnoughMoney.gameObject.SetActive(false);
+        }
+        else
+        {
+            currentCoins = currentCoins - flourInt;
+            flourBool = true;
+            flourDisableButton.gameObject.SetActive(false);
+            flourTick.gameObject.SetActive(true);
+            Debug.Log("Player now has flour");
+            flourCross.gameObject.SetActive(true);
+        }
+       
     }
     public void buySugar()
     {
-        currentCoins = currentCoins - sugarInt;
-        sugarBool = true;
-        sugarDisableButton.gameObject.SetActive(false);
-        sugarTick.gameObject.SetActive(true);
+        if (currentCoins <= sugarInt)
+        {
+            notEnoughMoney.gameObject.SetActive(true);
+            notEnoughMoney.gameObject.SetActive(false);
+        }
+        
+        else
+        {
+            currentCoins = currentCoins - sugarInt;
+            sugarBool = true;
+            sugarDisableButton.gameObject.SetActive(false);
+            sugarTick.gameObject.SetActive(true);
+            Debug.Log("Player now has sugar");
+            sugarCross.gameObject.SetActive(true);
+        }
     }
 
-    public void GameOver()
+    public void accessGameOver()
     {
-        //if our coins reach 0 we call scenemanager, gameover.
+        if (currentCoins <= 0)
+        {
+            GetComponent<sceneManager>().levelTransitionEnd();
+            Wait();
+            GetComponent<sceneManager>().GameOver();
+        }
     }
+
+    public void endGame()
+    {
+        if (milkBool == true && eggsBool == true && butterBool == true && flourBool == true && sugarBool == true )
+        {
+            yesWin.gameObject.SetActive(true);
+            WaitText();
+            yesWin.gameObject.SetActive(false);
+            GetComponent<sceneManager>().levelTransitionEnd();
+            WaitText();
+            GetComponent<sceneManager>().MainMenu();
+        }
+
+        else
+        {
+            noContinue.gameObject.SetActive(true);
+            WaitText();
+            noContinue.gameObject.SetActive(false);
+        }
+    }
+    
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1);
+    }
+
+    IEnumerator WaitText()
+    {
+        yield return new WaitForSeconds(3);
+    }
+
 }
