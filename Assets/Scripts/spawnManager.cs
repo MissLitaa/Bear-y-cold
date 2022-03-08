@@ -6,9 +6,10 @@ public class spawnManager : MonoBehaviour
 {
     public GameObject girlScout;
     public GameObject snowProyectile;
-    public GameObject player;
+    public GameObject proyOffset;
     public GameObject school;
 
+    public Animator playerAnimator;
     public Animation doorOpening;
 
     public Vector3 girlScoutSpawnPos;
@@ -16,6 +17,8 @@ public class spawnManager : MonoBehaviour
 
     public int girlScoutIndex;
     public int snowProyectileIndex;
+    public bool isAttacking;
+    public bool isAttackPressed;
 
     public countdownAndShop counter;
     public bool checkTimer_;
@@ -33,6 +36,7 @@ public class spawnManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Invoke("SpawnSnowProyectile", 0.5f);
+            playerAnimator.SetBool("isShooting", false);
         }
 
         if (checkTimer_ == false)
@@ -63,11 +67,10 @@ public class spawnManager : MonoBehaviour
 
     public void SpawnSnowProyectile()
     {
-
-        Vector3 offset = new Vector3(0, 1.1f, 0);
-        snowProyectilePos = player.transform.position;
-        Vector3 proyectileOffset = snowProyectilePos + offset;
-        Instantiate(snowProyectile, proyectileOffset, player.transform.rotation);
+        playerAnimator.SetBool("isShooting", true);
+        snowProyectilePos = proyOffset.transform.position;
+        Instantiate(snowProyectile, proyOffset.transform.position, proyOffset.transform.rotation);
+        
     }
 
 
