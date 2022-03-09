@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     //Player is moving forward;
     private bool playerIsMovingForward;
 
-
     void Start()
     {
         transform.position = new Vector3(2.05f, 0.2f, -11.5f);
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(transform.forward * runSpeed * verticalInput);
         rb.AddTorque(player.transform.up * turnSpeed * horizontalInput);
 
-        
         if (Input.GetAxis("Vertical") !=0)
         {
             Debug.Log(playerIsMovingForward);
@@ -56,6 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             playerAnimator.SetBool("isMoving", false);
         }
-        
+
     }
+
 }

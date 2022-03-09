@@ -35,8 +35,8 @@ public class spawnManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            playerAnimator.SetBool("isShooting", true);
             Invoke("SpawnSnowProyectile", 0.5f);
-            playerAnimator.SetBool("isShooting", false);
         }
 
         if (checkTimer_ == false)
@@ -67,10 +67,9 @@ public class spawnManager : MonoBehaviour
 
     public void SpawnSnowProyectile()
     {
-        playerAnimator.SetBool("isShooting", true);
         snowProyectilePos = proyOffset.transform.position;
         Instantiate(snowProyectile, proyOffset.transform.position, proyOffset.transform.rotation);
-        
+        playerAnimator.SetBool("isShooting", false);
     }
 
 

@@ -17,6 +17,12 @@ public class coinBehaviour : MonoBehaviour
     private int currentCoins;
     public int lossDrop = 3;
 
+    //Audio
+    public AudioSource buyIngrAS;
+    public AudioSource lossCoinAS;
+    public AudioClip buyIngrAC;
+    public AudioClip lossCoinsAC;
+
     //Prices
     [SerializeField] private int milkInt = 30;
     [SerializeField] private int eggsInt = 25;
@@ -63,6 +69,9 @@ public class coinBehaviour : MonoBehaviour
         StartCoroutine(Wait());
         StartCoroutine(WaitText());
         notEnoughMoney.gameObject.SetActive(false);
+        buyIngrAS = GetComponent<AudioSource>();
+        buyIngrAC = GetComponent<AudioClip>();
+        
     }
 
     private void Update()
@@ -78,6 +87,7 @@ public class coinBehaviour : MonoBehaviour
     public void SubstractCoins()
     {
         currentCoins = currentCoins - lossDrop;
+        lossCoinAS.PlayOneShot(lossCoinsAC, 1f);
     }
 
     public void buyMilk()
@@ -91,6 +101,7 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - milkInt;
             milkBool = true;
+            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             milkDisableButton.gameObject.SetActive(false);
             milkTick.gameObject.SetActive(true);
             Debug.Log("Player now has milk");
@@ -108,6 +119,7 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - eggsInt;
             eggsBool = true;
+            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             eggDisableButton.gameObject.SetActive(false);
             eggTick.gameObject.SetActive(true);
             Debug.Log("Player now has eggs");
@@ -125,6 +137,7 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - butterInt;
             butterBool = true;
+            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             butterDisableButton.gameObject.SetActive(false);
             butterTick.gameObject.SetActive(true);
             Debug.Log("Player now has butter");
@@ -142,6 +155,7 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - flourInt;
             flourBool = true;
+            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             flourDisableButton.gameObject.SetActive(false);
             flourTick.gameObject.SetActive(true);
             Debug.Log("Player now has flour");
@@ -161,6 +175,7 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - sugarInt;
             sugarBool = true;
+            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             sugarDisableButton.gameObject.SetActive(false);
             sugarTick.gameObject.SetActive(true);
             Debug.Log("Player now has sugar");
