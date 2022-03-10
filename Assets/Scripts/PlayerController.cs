@@ -23,11 +23,17 @@ public class PlayerController : MonoBehaviour
     //Player is moving forward;
     private bool playerIsMovingForward;
 
+    //pAS
+    public AudioSource playerAS;
+    public AudioClip playerWalk;
+    public AudioClip playerHurt;
+
     void Start()
     {
         transform.position = new Vector3(2.05f, 0.2f, -11.5f);
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
+        playerAS = GetComponent<AudioSource>();
     }
     void Update()
     {

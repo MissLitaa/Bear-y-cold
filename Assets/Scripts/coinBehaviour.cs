@@ -11,7 +11,7 @@ public class coinBehaviour : MonoBehaviour
     public TextMeshProUGUI coinCounter;
     public TextMeshProUGUI yesWin;
     public TextMeshProUGUI noContinue;
-    public GameObject notEnoughMoney;
+    public GameObject notEnoughMoneyText;
     private int baseCoins = 60;
     private int girlScoutDrop = 1;
     private int currentCoins;
@@ -65,13 +65,7 @@ public class coinBehaviour : MonoBehaviour
     {
         currentCoins = baseCoins;
         coinCounter.text = currentCoins.ToString();
-        new WaitForSecondsRealtime(3);
-        StartCoroutine(Wait());
-        StartCoroutine(WaitText());
-        notEnoughMoney.gameObject.SetActive(false);
-        buyIngrAS = GetComponent<AudioSource>();
-        buyIngrAC = GetComponent<AudioClip>();
-        
+        notEnoughMoneyText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -82,6 +76,7 @@ public class coinBehaviour : MonoBehaviour
     public void AddCoins()
     {
         currentCoins = currentCoins + girlScoutDrop;
+        buyIngrAS.PlayOneShot(buyIngrAC, 1f);
     }
 
     public void SubstractCoins()
@@ -94,8 +89,7 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= milkInt)
         {
-            notEnoughMoney.gameObject.SetActive(true);
-            notEnoughMoney.gameObject.SetActive(false);
+            StartCoroutine(notEnoughMoney());
         }
         else
         {
@@ -112,8 +106,7 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= eggsInt)
         {
-            notEnoughMoney.gameObject.SetActive(true);
-            notEnoughMoney.gameObject.SetActive(false);
+            StartCoroutine(notEnoughMoney());
         }
         else
         {
@@ -130,8 +123,7 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= butterInt)
         {
-            notEnoughMoney.gameObject.SetActive(true);
-            notEnoughMoney.gameObject.SetActive(false); ;
+            StartCoroutine(notEnoughMoney());
         }
         else
         {
@@ -148,8 +140,7 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= flourInt)
         {
-            notEnoughMoney.gameObject.SetActive(true);
-            notEnoughMoney.gameObject.SetActive(false);
+            StartCoroutine(notEnoughMoney());
         }
         else
         {
@@ -167,8 +158,7 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= sugarInt)
         {
-            notEnoughMoney.gameObject.SetActive(true);
-            notEnoughMoney.gameObject.SetActive(false);
+            StartCoroutine(notEnoughMoney());
         }
         
         else
@@ -188,7 +178,6 @@ public class coinBehaviour : MonoBehaviour
         if (currentCoins <= 0)
         {
             GetComponent<sceneManager>().levelTransitionEnd();
-            Wait();
             GetComponent<sceneManager>().GameOver();
         }
     }
@@ -197,30 +186,39 @@ public class coinBehaviour : MonoBehaviour
     {
         if (milkBool == true && eggsBool == true && butterBool == true && flourBool == true && sugarBool == true )
         {
-            yesWin.gameObject.SetActive(true);
-            WaitText();
-            yesWin.gameObject.SetActive(false);
+            endGameTrue();
             GetComponent<sceneManager>().levelTransitionEnd();
-            WaitText();
             GetComponent<sceneManager>().MainMenu();
         }
 
         else
         {
             noContinue.gameObject.SetActive(true);
-            WaitText();
+            noContinueText();
             noContinue.gameObject.SetActive(false);
         }
     }
     
-    IEnumerator Wait()
+    
+    IEnumerator notEnoughMoney()
     {
-        yield return new WaitForSeconds(1);
+        notEnoughMoneyText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
+        notEnoughMoneyText.gameObject.SetActive(false);
     }
 
-    IEnumerator WaitText()
+    IEnumerator endGameTrue()
     {
-        yield return new WaitForSeconds(3);
+        yesWin.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(5);
+        yesWin.gameObject.SetActive(false);
+    }
+
+    IEnumerator noContinueText()
+    {
+        noContinue.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(3);
+        noContinue.gameObject.SetActive(false);
     }
 
 }

@@ -14,6 +14,7 @@ public class spawnManager : MonoBehaviour
 
     public Vector3 girlScoutSpawnPos;
     private Vector3 snowProyectilePos;
+    public Vector3 girlScoutCurrentPos;
 
     public int girlScoutIndex;
     public int snowProyectileIndex;
@@ -24,14 +25,18 @@ public class spawnManager : MonoBehaviour
     public bool checkTimer_;
     public Coroutine stopGirlScout = null;
 
+   
+
     public void Awake()
     {
-        //StartCoroutine(spawnGirlScout(true));
+        StartCoroutine(spawnGirlScout(true));
+        
     }
 
     void Update()
     {
         checkTimer_ = counter.checkTimer;
+        girlScoutCurrentPos = girlScout.transform.localPosition;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -73,14 +78,5 @@ public class spawnManager : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            //call coin substraction here
-        }
-
-
-    }
 
 }

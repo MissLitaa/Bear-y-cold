@@ -141,3 +141,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   proyectileSpeed: 30
   snowBlowPS: {fileID: 1712052312336784070, guid: e0646878472769a4e8a3e3c30c7f7bc9, type: 3}
+  girlScoutAS: {fileID: -1694635906913871772, guid: 82bdb8a9735386740b2cf4728df10985, type: 3}
+  girlScoutAC: {fileID: 8300000, guid: d07aeaeb21e9221469a51b9c56d8d009, type: 3}
