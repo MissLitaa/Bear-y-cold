@@ -10,22 +10,29 @@ public class girlScoutIA : MonoBehaviour
     public GameObject coin;
     private NavMeshAgent navMesh;
     public coinBehaviour coinBeh;
+    private BoxCollider collider;
 
     //Animations
     public Animator scoutAnimator;
     public AnimationClip scoutRunningAnim;
 
+    public float idleTime = 4f;
+
     public void Start()
-    { player = GameObject.Find("Player");
+    { 
+        player = GameObject.Find("Player");
         navMesh = GetComponent<NavMeshAgent>();
         coinBeh = FindObjectOfType<coinBehaviour>();
+        collider = GetComponent<BoxCollider>();
+        scoutAnimator.SetBool("isMoving", true);
+
     }
 
-    
+
     void FixedUpdate()
     {
-        scoutAnimator.SetBool("isMoving", true);
-        navMesh.destination = player.transform.position;
+        if(scoutAnimator.GetBool("isMoving")==true)
+            navMesh.destination = player.transform.position;
     }
 
 
@@ -33,13 +40,22 @@ public class girlScoutIA : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            
             coinBeh.SubstractCoins();
-            transform.localPosition -= 3 * Vector3.forward;
             collision.gameObject.GetComponent<PlayerController>().playerAS.PlayOneShot(collision.gameObject.GetComponent<PlayerController>().playerHurt, 1);
-
+            StartCoroutine(StayStill());
+            
         }
 
     }
 
+    IEnumerator StayStill()
+{
+        scoutAnimator.SetBool("isMoving", false);
+        collider.enabled = false;
+        yield return new WaitForSeconds(idleTime);
+        collider.enabled = true;
+        scoutAnimator.SetBool("isMoving", true);
+    }
 
 }

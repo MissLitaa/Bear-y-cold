@@ -70,16 +70,13 @@ public class coinBehaviour : MonoBehaviour
     private float playerIsInRange = 7.5f;
     public bool hasAllIngredients_;
 
+
     void Start()
     {
         currentCoins = baseCoins;
         coinCounter.text = currentCoins.ToString();
         notEnoughMoneyText.gameObject.SetActive(false);
-        buyAndLossAS = GetComponent<AudioSource>();
-        buyIngrAC = GetComponent<AudioClip>();
-        lossCoinsAC = GetComponent<AudioClip>();
         housePosition = house.transform.position;
-        sceneMan = GetComponent<sceneManager>();
     }
 
     private void Update()
@@ -91,26 +88,23 @@ public class coinBehaviour : MonoBehaviour
         distance = Vector3.Distance(playerPosition, housePosition);
         Debug.Log(distance);
 
-        if (distance <= playerIsInRange && hasAllIngredients_ ==true )
+        if (distance <= playerIsInRange)
         {
-            endGame();
+            if ( hasAllIngredients_ == true)
+                StartCoroutine(endGameTrue());
+            else
+                StartCoroutine(noContinueText());
         }
-
-        else
-        {
-            noContinueText();
-        }
+        accessGameOver();
     }
     public void AddCoins()
     {
         currentCoins = currentCoins + girlScoutDrop;
-        buyAndLossAS.PlayOneShot(buyIngrAC, 1f);
     }
 
     public void SubstractCoins()
     {
         currentCoins = currentCoins - lossDrop;
-        buyAndLossAS.PlayOneShot(lossCoinsAC, 1f);
     }
 
     public void buyMilk()
@@ -170,7 +164,6 @@ public class coinBehaviour : MonoBehaviour
         }
         else
         {
-            
             currentCoins = currentCoins - flourInt;
             flourBool = true;
             flourDisableButton.gameObject.SetActive(false);
@@ -203,15 +196,10 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= 0)
         {
-            GetComponent<sceneManager>().GameOver();
+            sceneMan.GameOver();
         }
     }
 
-    public void endGame()
-    {
-        endGameTrue();
-        GetComponent<sceneManager>().MainMenu();
-    }
   
     IEnumerator notEnoughMoney()
     {
@@ -223,14 +211,15 @@ public class coinBehaviour : MonoBehaviour
     IEnumerator endGameTrue()
     {
         yesWin.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSeconds(5);
         yesWin.gameObject.SetActive(false);
+        sceneMan.MainMenu();
     }
 
     IEnumerator noContinueText()
     {
         noContinue.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSeconds(3);
         noContinue.gameObject.SetActive(false);
     }
 
