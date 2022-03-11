@@ -6,10 +6,18 @@ public class proyectileForward : MonoBehaviour
 {
     public float proyectileSpeed = 50f;
     public GameObject snowBlowPS;
+    public GameObject coinFBX;
+    public coinBehaviour coinBeh;
 
-    //Audio
-    public AudioSource girlScoutAS;
-    public AudioClip girlScoutAC;
+    //AS
+    public AudioSource GSAudioSource;
+    public AudioClip GSAudioClip;
+    public bool girlIsHit;
+
+    private void Start()
+    {
+        coinBeh = FindObjectOfType<coinBehaviour>();
+    }
 
     void Update()
     {
@@ -17,18 +25,33 @@ public class proyectileForward : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag ("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            girlScoutAS.PlayOneShot(girlScoutAC, 1);
-            Instantiate(snowBlowPS, transform.position, Quaternion.identity);
-            //Animation girl scout death here.
-            Destroy(gameObject);
-            Destroy(other.gameObject);
-            Debug.Log("girl scout has been hit");
-            //Generate coins. Call to coin script here.
+            girlIsHit = true;
+            if (girlIsHit == true)
+            {
+                GSAudioSource.PlayOneShot(GSAudioClip, 1);
+                Instantiate(snowBlowPS, transform.position, Quaternion.identity);
+                //Animation girl scout death here.
+                scoutDeath();
+                Destroy(other.gameObject);
+                Debug.Log("girl scout has been hit");
+                //Generate coins. Call to coin script here.
+                Instantiate(coinFBX, transform.position, Quaternion.identity);
+            }
+
         }
+        girlIsHit = false;
+
+    }
+
+    IEnumerator scoutDeath()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        Destroy(gameObject);
+        
     }
 
 }

@@ -30,11 +30,13 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(2.05f, 0.2f, -11.5f);
+        transform.position = new Vector3(2.05f, 0.2f, -9.5f);
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
         playerAS = GetComponent<AudioSource>();
+        playerHurt = GetComponent<AudioClip>();
     }
+
     void Update()
     {
         playerRunning();

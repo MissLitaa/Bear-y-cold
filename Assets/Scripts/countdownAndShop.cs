@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class countdownAndShop : MonoBehaviour
 {
     public float currentTime = 0f;
-    public float startingTime = 5f;
-    [HideInInspector] public bool timerIsRunning;
-    [HideInInspector] public bool restartTimer;
+    public float startingTime = 30f;
+    public bool timerIsRunning;
+    public bool restartTimer;
     public bool checkTimer;
 
     public TextMeshProUGUI timeDisplay;
     public TextMeshProUGUI money;
 
     [HideInInspector] sceneManager sceneMan;
-    public spawnManager spawnMan;
+    public GameObject spawnMan;
 
     public Canvas shopCanvas;
     public GameObject shopCanvasGEO;
@@ -39,11 +39,12 @@ public class countdownAndShop : MonoBehaviour
         currentTime = startingTime;
         timerIsRunning = true;
         shopPosition = shopGEO.transform.localPosition;
+        
     }
 
     public void FixedUpdate()
     {
-        StartCoroutine(timerRoutine(1));
+        StartCoroutine(timerRoutine(true));
         checkTimer = timerIsRunning;
         Debug.Log($"Timer is updating to {timerIsRunning}");
 
@@ -65,17 +66,20 @@ public class countdownAndShop : MonoBehaviour
                 }
             }
         }
-
+        
     }
 
-    public IEnumerator timerRoutine(int run)
+    public IEnumerator timerRoutine(bool run)
     {
+       
         playerPosition = player.transform.position;
         timeDisplay.text = currentTime.ToString("00:00");
 
         if (currentTime > 0)
         {
             currentTime -= 1 * Time.deltaTime;
+            timerIsRunning = true;
+
         }
         else if (currentTime <= 0)
         {
@@ -95,20 +99,20 @@ public class countdownAndShop : MonoBehaviour
 
     public void openShop()
     {
-            shopCanvasGEO.SetActive(true);
-            Debug.Log("Player is in shop");
-            isInShop = true;
+        shopCanvasGEO.SetActive(true);
+        Debug.Log("Player is in shop");
+        isInShop = true;
+        timerIsRunning = false;
     }
 
     public void closeShop()
     {
+        currentTime = startingTime;
         shopCanvasGEO.SetActive(false);
         Debug.Log("Player leaves the shop");
         isInShop = false;
-        spawnMan.spawnGirlScout(true);
-        currentTime = startingTime;
-        timerIsRunning = true;
-        StartCoroutine(timerRoutine(1));
+        StartCoroutine(timerRoutine(true));
+        StartCoroutine(spawnMan.GetComponent<spawnManager>().spawnGirlScout(true));
     }
 
 }

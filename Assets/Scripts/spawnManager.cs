@@ -23,20 +23,17 @@ public class spawnManager : MonoBehaviour
 
     public countdownAndShop counter;
     public bool checkTimer_;
-    public Coroutine stopGirlScout = null;
 
-   
-
-    public void Awake()
+    public proyectileForward proyFor;
+        
+    public void Start()
     {
         StartCoroutine(spawnGirlScout(true));
-        
     }
 
     void Update()
     {
         checkTimer_ = counter.checkTimer;
-        girlScoutCurrentPos = girlScout.transform.localPosition;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -64,9 +61,9 @@ public class spawnManager : MonoBehaviour
             Instantiate(girlScout, girlScoutSpawnPos, girlScout.transform.rotation);
             Debug.Log("One girl scout has spawned");
             yield return spawnGirlScout(true);
+            
         }
         while (run == true);
-        
     }
 
 
@@ -76,7 +73,5 @@ public class spawnManager : MonoBehaviour
         Instantiate(snowProyectile, proyOffset.transform.position, proyOffset.transform.rotation);
         playerAnimator.SetBool("isShooting", false);
     }
-
-
 
 }

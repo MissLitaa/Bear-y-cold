@@ -16,8 +16,7 @@ public class girlScoutIA : MonoBehaviour
     public AnimationClip scoutRunningAnim;
 
     public void Start()
-    {
-        player = GameObject.Find("Player");
+    { player = GameObject.Find("Player");
         navMesh = GetComponent<NavMeshAgent>();
         coinBeh = FindObjectOfType<coinBehaviour>();
     }
@@ -40,13 +39,7 @@ public class girlScoutIA : MonoBehaviour
 
         }
 
-
     }
 
-    private void OnDestroy()
-    {
-        scoutAnimator.SetBool("isMoving", false);
 
-        
-    }
 }

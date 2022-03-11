@@ -13,13 +13,12 @@ public class coinBehaviour : MonoBehaviour
     public TextMeshProUGUI noContinue;
     public GameObject notEnoughMoneyText;
     private int baseCoins = 60;
-    private int girlScoutDrop = 1;
+    private int girlScoutDrop = 5;
     private int currentCoins;
-    public int lossDrop = 3;
+    private int lossDrop = 5;
 
     //Audio
-    public AudioSource buyIngrAS;
-    public AudioSource lossCoinAS;
+    public AudioSource buyAndLossAS;
     public AudioClip buyIngrAC;
     public AudioClip lossCoinsAC;
 
@@ -59,30 +58,59 @@ public class coinBehaviour : MonoBehaviour
     public Image sugarCross;
 
     //Game Over
-    public GameObject sceneMan;
+    public sceneManager sceneMan;
+   
+
+    //Game Win
+    public GameObject house;
+    public GameObject player;
+    [HideInInspector] public Vector3 housePosition;
+    [HideInInspector] public Vector3 playerPosition;
+    public float distance;
+    private float playerIsInRange = 7.5f;
+    public bool hasAllIngredients_;
 
     void Start()
     {
         currentCoins = baseCoins;
         coinCounter.text = currentCoins.ToString();
         notEnoughMoneyText.gameObject.SetActive(false);
+        buyAndLossAS = GetComponent<AudioSource>();
+        buyIngrAC = GetComponent<AudioClip>();
+        lossCoinsAC = GetComponent<AudioClip>();
+        housePosition = house.transform.position;
+        sceneMan = GetComponent<sceneManager>();
     }
 
     private void Update()
     {
         coinCounter.text = currentCoins.ToString();
-        accessGameOver();
+        playerPosition = player.transform.position;
+        hasAllIngredients();
+
+        distance = Vector3.Distance(playerPosition, housePosition);
+        Debug.Log(distance);
+
+        if (distance <= playerIsInRange && hasAllIngredients_ ==true )
+        {
+            endGame();
+        }
+
+        else
+        {
+            noContinueText();
+        }
     }
     public void AddCoins()
     {
         currentCoins = currentCoins + girlScoutDrop;
-        buyIngrAS.PlayOneShot(buyIngrAC, 1f);
+        buyAndLossAS.PlayOneShot(buyIngrAC, 1f);
     }
 
     public void SubstractCoins()
     {
         currentCoins = currentCoins - lossDrop;
-        lossCoinAS.PlayOneShot(lossCoinsAC, 1f);
+        buyAndLossAS.PlayOneShot(lossCoinsAC, 1f);
     }
 
     public void buyMilk()
@@ -95,12 +123,12 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - milkInt;
             milkBool = true;
-            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             milkDisableButton.gameObject.SetActive(false);
             milkTick.gameObject.SetActive(true);
             Debug.Log("Player now has milk");
             milkCross.gameObject.SetActive(true);
         }
+
     }
     public void buyEggs()
     {
@@ -112,7 +140,6 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - eggsInt;
             eggsBool = true;
-            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             eggDisableButton.gameObject.SetActive(false);
             eggTick.gameObject.SetActive(true);
             Debug.Log("Player now has eggs");
@@ -129,7 +156,6 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - butterInt;
             butterBool = true;
-            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             butterDisableButton.gameObject.SetActive(false);
             butterTick.gameObject.SetActive(true);
             Debug.Log("Player now has butter");
@@ -144,9 +170,9 @@ public class coinBehaviour : MonoBehaviour
         }
         else
         {
+            
             currentCoins = currentCoins - flourInt;
             flourBool = true;
-            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             flourDisableButton.gameObject.SetActive(false);
             flourTick.gameObject.SetActive(true);
             Debug.Log("Player now has flour");
@@ -165,11 +191,11 @@ public class coinBehaviour : MonoBehaviour
         {
             currentCoins = currentCoins - sugarInt;
             sugarBool = true;
-            buyIngrAS.PlayOneShot(buyIngrAC, 1f);
             sugarDisableButton.gameObject.SetActive(false);
             sugarTick.gameObject.SetActive(true);
             Debug.Log("Player now has sugar");
             sugarCross.gameObject.SetActive(true);
+                     
         }
     }
 
@@ -177,29 +203,16 @@ public class coinBehaviour : MonoBehaviour
     {
         if (currentCoins <= 0)
         {
-            GetComponent<sceneManager>().levelTransitionEnd();
             GetComponent<sceneManager>().GameOver();
         }
     }
 
     public void endGame()
     {
-        if (milkBool == true && eggsBool == true && butterBool == true && flourBool == true && sugarBool == true )
-        {
-            endGameTrue();
-            GetComponent<sceneManager>().levelTransitionEnd();
-            GetComponent<sceneManager>().MainMenu();
-        }
-
-        else
-        {
-            noContinue.gameObject.SetActive(true);
-            noContinueText();
-            noContinue.gameObject.SetActive(false);
-        }
+        endGameTrue();
+        GetComponent<sceneManager>().MainMenu();
     }
-    
-    
+  
     IEnumerator notEnoughMoney()
     {
         notEnoughMoneyText.gameObject.SetActive(true);
@@ -221,4 +234,12 @@ public class coinBehaviour : MonoBehaviour
         noContinue.gameObject.SetActive(false);
     }
 
+    public void hasAllIngredients()
+    {
+       if (milkBool == true && eggsBool == true && butterBool == true && flourBool == true && sugarBool == true)
+       {
+            hasAllIngredients_ = true;
+       }
+    }
+    
 }

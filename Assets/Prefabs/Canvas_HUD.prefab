@@ -15,8 +15,11 @@ MonoBehaviour:
   coinCounter: {fileID: 3497773527388220102}
   yesWin: {fileID: 3777246310011034423}
   noContinue: {fileID: 41688367820793607}
-  notEnoughMoney: {fileID: 0}
+  notEnoughMoneyText: {fileID: 0}
   lossDrop: 3
+  buyAndLossAS: {fileID: 0}
+  buyIngrAC: {fileID: 8300000, guid: 7942a03bc6d4b8b4c9d4347542341f02, type: 3}
+  lossCoinsAC: {fileID: 8300000, guid: d23d8fcc8e057fe4b9d61267f2e95ee0, type: 3}
   milkInt: 30
   eggsInt: 25
   butterInt: 30
@@ -37,6 +40,11 @@ MonoBehaviour:
   butterTick: {fileID: 0}
   flourTick: {fileID: 0}
   sugarTick: {fileID: 0}
+  milkCross: {fileID: 3497773528152947403}
+  eggCross: {fileID: 3497773527958612641}
+  butterCross: {fileID: 3497773527523394698}
+  flourCross: {fileID: 3497773527473913540}
+  sugarCross: {fileID: 3497773528422057731}
   sceneMan: {fileID: 0}
 --- !u!1 &2715191850118484806
 GameObject:
