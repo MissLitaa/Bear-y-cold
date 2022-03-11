@@ -9,8 +9,8 @@ public class sceneManager : MonoBehaviour
 
     public void MainMenu()
     {
-        levelTransitionStart();
-        SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
+        UIManagerMenu.callForName.saveCharName();
+        SceneManager.LoadScene("Menu_Start", LoadSceneMode.Single);
     }
     public void Outside()
     {

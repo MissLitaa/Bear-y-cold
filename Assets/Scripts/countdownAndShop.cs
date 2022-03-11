@@ -85,9 +85,8 @@ public class countdownAndShop : MonoBehaviour
         {
             currentTime = 0;
             timerIsRunning = false;
-
             Debug.Log("Timer is not running");
-
+            
         }
 
         while (timerIsRunning)
