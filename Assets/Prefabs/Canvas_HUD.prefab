@@ -16,7 +16,6 @@ MonoBehaviour:
   yesWin: {fileID: 3777246310011034423}
   noContinue: {fileID: 41688367820793607}
   notEnoughMoneyText: {fileID: 0}
-  lossDrop: 3
   buyAndLossAS: {fileID: 0}
   buyIngrAC: {fileID: 8300000, guid: 7942a03bc6d4b8b4c9d4347542341f02, type: 3}
   lossCoinsAC: {fileID: 8300000, guid: d23d8fcc8e057fe4b9d61267f2e95ee0, type: 3}
@@ -46,6 +45,12 @@ MonoBehaviour:
   flourCross: {fileID: 3497773527473913540}
   sugarCross: {fileID: 3497773528422057731}
   sceneMan: {fileID: 0}
+  house: {fileID: 0}
+  player: {fileID: 0}
+  housePosition: {x: 0, y: 0, z: 0}
+  playerPosition: {x: 0, y: 0, z: 0}
+  distance: 0
+  hasAllIngredients_: 0
 --- !u!1 &2715191850118484806
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTime: 0
-  startingTime: 10
+  startingTime: 30
   timerIsRunning: 0
   restartTimer: 0
   checkTimer: 0

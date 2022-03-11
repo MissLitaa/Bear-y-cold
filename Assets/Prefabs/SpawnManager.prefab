@@ -43,10 +43,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581b0bb26d1a17046aa64744abb6f0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  girlScout: {fileID: 7426457900366043783, guid: 94f323397f47b6b4692fdd18b9e3ed9d, type: 3}
+  girlScout: {fileID: 3352114246291568637, guid: 82bdb8a9735386740b2cf4728df10985, type: 3}
   snowProyectile: {fileID: 88774304031192297, guid: a3c4c743084bee142a8d3eab36ead42f, type: 3}
-  player: {fileID: 0}
+  proyOffset: {fileID: 0}
   school: {fileID: 0}
+  playerAnimator: {fileID: 0}
   doorOpening: {fileID: 0}
+  girlScoutSpawnPos: {x: 0, y: 0, z: 0}
+  girlScoutCurrentPos: {x: 0, y: 0, z: 0}
   girlScoutIndex: 0
   snowProyectileIndex: 0
+  isAttacking: 0
+  isAttackPressed: 0
+  counter: {fileID: 0}
+  checkTimer_: 0
+  proyFor: {fileID: -5494838215323133370, guid: a3c4c743084bee142a8d3eab36ead42f, type: 3}

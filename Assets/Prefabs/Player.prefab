@@ -130,7 +130,7 @@ Rigidbody:
   m_GameObject: {fileID: 2017522650362220202}
   serializedVersion: 2
   m_Mass: 5
-  m_Drag: 10
+  m_Drag: 1
   m_AngularDrag: 20
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -149,8 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0dbc5591c16b4469cd2720d4f6895f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 350
-  turnSpeed: 30
   player: {fileID: 2017522650362220202}
   playerAnimator: {fileID: 5067765990069669482}
   playerRunningAnim: {fileID: 7400000, guid: 1391e3df0cf66b440996155747e4e3ca, type: 2}

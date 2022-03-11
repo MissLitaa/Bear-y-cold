@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Movement speed.
-    public float runSpeed = 25f;
+    private float runSpeed = 600f;
 
     //Turn speed.
-    public float turnSpeed = 100;
+   private float turnSpeed = 50;
 
     //Axis.
     private float horizontalInput;
